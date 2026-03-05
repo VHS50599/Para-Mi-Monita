@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Mi Monita</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:"Helvetica Neue",Arial,sans-serif; }
+body {
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(145deg, #cda8ff, #e8d5ff, #ffe6f2);
+    overflow:hidden;
+    position: relative;
+}
+
+/* Floating hearts */
+.heart-bg {
+    position:absolute;
+    font-size:20px;
+    color:white;
+    opacity:0.6;
+    pointer-events:none;
+    animation: floatHeart linear infinite;
+}
+
+@keyframes floatHeart {
+    0% { transform: translateY(100vh) scale(1); opacity:0; }
+    10% { opacity:0.6; }
+    90% { opacity:0.6; }
+    100% { transform: translateY(-100vh) scale(1.2); opacity:0; }
+}
+
+/* Envelope container */
+.envelope-container {
+    position: relative;
+    width: 320px;
+    max-width:90%;
+    height:220px;
+    z-index:10;
+}
+
+/* Envelope body */
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    overflow:hidden;
+}
+
+/* Flap */
+.flap {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:50%;
+    background:#fff;
+    border-bottom: 2px solid #ccc;
+    border-radius:10px 10px 0 0;
+    transform-origin: top;
+    transition: transform 1s ease;
+    z-index:2;
+}
+
+/* Heart seal */
+.heart {
+    position:absolute;
+    top:calc(50% - 18px);
+    left:50%;
+    transform:translateX(-50%);
+    font-size:36px;
+    cursor:pointer;
+    z-index:3;
+    transition: transform 0.3s ease;
+}
+.heart:hover { transform: translateX(-50%) scale(1.2); }
+
+/* Letter inside */
+.letter {
+    position:absolute;
+    top:50px;
+    left:0;
+    width:100%;
+    height:calc(100% - 50px);
+    padding:20px;
+    overflow-y:auto;
+    color:#333;
+    line-height:1.5;
+    opacity:0;
+    transition: opacity 1s ease;
+    background:#fff;
+    z-index:1;
+}
+
+.letter h1 { font-size:1.5rem; margin-bottom:15px; text-align:center; }
+.letter p { margin-bottom:10px; }
+</style>
+</head>
+<body>
+
+<!-- Envelope -->
+<div class="envelope-container">
+    <div class="envelope">
+        <div class="flap" id="flap"></div>
+        <div class="letter" id="letter">
+            <h1>Para ti</h1>
+            <p>No fue casualidad.<br>
+            Entre todas las personas, entre todas las historias posibles, te elegí a ti. Y te sigo eligiendo.</p>
+
+            <p>Cuando te conocí, hubo química desde el primer instante. Desde ese momento supe que eras alguien que iba a marcar mi vida de una manera que nadie más podría. Eres mi debilidad. Por ti, yo mato y muero.</p>
+
+            <p>Conmigo puedes hablar de todo. Ser todo. No esconder nada. Yo no estoy aquí a medias. Aquí no hay secretos, ni filtros, solo nosotros.</p>
+
+            <p>La felicidad no tiene precio, pero tiene tu nombre. Que yo esté pensándote para mí es normal, todo lo que tienes a mí me gusta. Tú siempre vas a tenerme, y yo siempre voy a tenerte.</p>
+
+            <p>Si me voy mañana, acuérdate que tu sonrisa, mi amor, es la más linda. Yo quiero perderme en tus labios. Con esa mirada tú me hipnotizas. Es que enserio mira lo cursi que me has convertido. Si esto no es amor, entonces soy un loco sin motivo. Me delatan los ojos cuando escucho tu nombre.</p>
+
+            <p>Y entre todo esto, cada palabra que hemos compartido, cada canción que nos hace sentir lo mismo, me recuerda que contigo todo se vive intenso. Que el amor verdadero es el que no se mide ni se compara. Que no hay miedo de decir lo que sentimos, ni de demostrarlo, porque no existe nada más valioso que este nosotros.</p>
+
+            <p>Gracias por ser tú. Gracias por dejarme quererte así. Gracias por amarme a mí como yo te amo, y eso que mi amor por ti se vuelve más grande todos los días.</p>
+        </div>
+        <div class="heart" id="heart">❤️</div>
+    </div>
+</div>
+
+<script>
+const flap = document.getElementById("flap");
+const heart = document.getElementById("heart");
+const letter = document.getElementById("letter");
+
+heart.addEventListener("click", () => {
+    flap.style.transform = "rotateX(-180deg)";
+    letter.style.opacity = "1";
+    heart.style.display = "none";
+});
+
+// Create floating hearts
+const totalHearts = 30;
+for(let i=0; i<totalHearts; i++){
+    const h = document.createElement('div');
+    h.classList.add('heart-bg');
+    h.style.left = Math.random()*100 + 'vw';
+    h.style.fontSize = (10 + Math.random()*15) + 'px';
+    // Use negative delay so hearts start at random positions immediately
+    h.style.animationDuration = (5 + Math.random()*10) + 's';
+    h.style.animationDelay = -(Math.random()*10) + 's';
+    h.textContent = '❤';
+    document.body.appendChild(h);
+}
+</script>
+
+</body>
+</html>
